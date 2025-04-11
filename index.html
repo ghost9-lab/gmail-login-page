@@ -1,546 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign in - Gmail</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto', Arial, sans-serif;
-        }
-        
-        body {
-            background-color: #fff;
-            color: #202124;
-        }
-        
-        .header {
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-text {
-            color: #5f6368;
-            font-size: 22px;
-            margin-left: 8px;
-            font-weight: 400;
-        }
-        
-        .nav-links a {
-            color: #1a73e8;
-            text-decoration: none;
-            font-size: 14px;
-            padding: 10px;
-            border-radius: 4px;
-        }
-        
-        .nav-links a:hover {
-            background-color: #f6f9fe;
-        }
-        
-        .main {
-            max-width: 450px;
-            margin: 0 auto;
-            padding: 48px 0;
-        }
-        
-        .login-container {
-            border: 1px solid #dadce0;
-            border-radius: 8px;
-            padding: 40px 40px;
-        }
-        
-        .login-header {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-        
-        .login-header h1 {
-            font-size: 24px;
-            font-weight: 400;
-            line-height: 1.3333;
-        }
-        
-        .login-header p {
-            color: #202124;
-            font-size: 16px;
-            font-weight: 400;
-            letter-spacing: 0.1px;
-            line-height: 1.5;
-            margin-top: 8px;
-        }
-        
-        .input-field {
-            margin-bottom: 24px;
-            position: relative;
-        }
-        
-        .input-field input {
-            width: 100%;
-            height: 54px;
-            padding: 16px 14px;
-            font-size: 16px;
-            border: 1px solid #dadce0;
-            border-radius: 4px;
-            outline: none;
-        }
-        
-        .input-field input:focus {
-            border: 2px solid #1a73e8;
-            padding: 15px 13px;
-        }
-        
-        .input-field label {
-            position: absolute;
-            top: 16px;
-            left: 14px;
-            color: #5f6368;
-            font-size: 16px;
-            pointer-events: none;
-            transition: 0.2s;
-        }
-        
-        .input-field input:focus + label,
-        .input-field input:not(:placeholder-shown) + label {
-            top: 8px;
-            left: 10px;
-            font-size: 12px;
-            background-color: white;
-            padding: 0 4px;
-            color: #1a73e8;
-        }
-        
-        .forgot-email, .forgot-password {
-            margin-bottom: 40px;
-        }
-        
-        .forgot-email a, .forgot-password a {
-            color: #1a73e8;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-        }
-        
-        .forgot-email a:hover, .forgot-password a:hover {
-            text-decoration: underline;
-        }
-        
-        .login-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 26px;
-        }
-        
-        .create-account a {
-            color: #1a73e8;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-        }
-        
-        .next-button {
-            background-color: #1a73e8;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 10px 24px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-        }
-        
-        .next-button:hover {
-            background-color: #1b66c9;
-            box-shadow: 0 1px 3px 1px rgba(66, 64, 67, 0.15);
-        }
-        
-        .back-button {
-            background-color: transparent;
-            color: #1a73e8;
-            border: none;
-            border-radius: 4px;
-            padding: 10px 24px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-        
-        .back-button:hover {
-            background-color: #f6f9fe;
-        }
-        
-        .footer {
-            margin-top: 24px;
-            display: flex;
-            justify-content: space-between;
-            color: #5f6368;
-            font-size: 12px;
-            padding: 24px 0;
-        }
-        
-        .footer a {
-            color: #5f6368;
-            text-decoration: none;
-            padding: 0 10px;
-        }
-        
-        .footer a:hover {
-            text-decoration: underline;
-        }
-        
-        .language-selector {
-            display: flex;
-            align-items: center;
-        }
-        
-        .language-selector select {
-            border: none;
-            color: #5f6368;
-            background: none;
-            cursor: pointer;
-        }
-        
-        .user-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 24px;
-            padding: 12px;
-            background-color: #f7f8f8;
-            border-radius: 4px;
-        }
-        
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #1a73e8;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 12px;
-            font-weight: 500;
-        }
-        
-        .user-details {
-            flex-grow: 1;
-        }
-        
-        .user-email {
-            font-weight: 500;
-        }
-        
-        .error-message {
-            color: #d93025;
-            font-size: 14px;
-            margin-top: -20px;
-            margin-bottom: 20px;
-            display: none;
-        }
-        
-        .loading {
-            display: none;
-            text-align: center;
-            margin: 20px 0;
-        }
-        
-        .spinner {
-            border: 3px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            border-top: 3px solid #1a73e8;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gmail Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f1f1f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-box {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      padding: 40px;
+      width: 360px;
+      text-align: center;
+    }
+
+    .login-box img {
+      width: 75px;
+      margin-bottom: 20px;
+    }
+
+    .login-box h2 {
+      margin-bottom: 8px;
+      font-size: 24px;
+      font-weight: 400;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #1669c1;
+    }
+
+    .bottom-text {
+      font-size: 14px;
+      color: #5f6368;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-            </svg>
-            <span class="logo-text">Gmail</span>
-        </div>
-        <div class="nav-links">
-            <a href="#">For work</a>
-        </div>
+  <div class="login-box">
+    <img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r2.png" alt="Gmail Logo" />
+    <h2>Sign in</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Next</button>
+    </form>
+    <div class="bottom-text">
+      Not your computer? Use Guest mode to sign in privately.
     </div>
-    
-    <div class="main">
-        <div class="login-container">
-            <!-- Step 1: Email Input -->
-            <div id="step1">
-                <div class="login-header">
-                    <h1>Sign in</h1>
-                    <p>to continue to Gmail</p>
-                </div>
-                
-                <div class="error-message" id="email-error"></div>
-                
-                <div class="input-field">
-                    <input type="email" id="email" placeholder=" " autofocus>
-                    <label for="email">Email or phone</label>
-                </div>
-                
-                <div class="forgot-email">
-                    <a href="#">Forgot email?</a>
-                </div>
-                
-                <div class="login-footer">
-                    <div class="create-account">
-                        <a href="#" id="create-account-link">Create account</a>
-                    </div>
-                    <button class="next-button" id="next-email">Next</button>
-                </div>
-            </div>
-            
-            <!-- Step 2: Password Input -->
-            <div id="step2" style="display: none;">
-                <div class="user-info">
-                    <div class="user-avatar" id="user-avatar">U</div>
-                    <div class="user-details">
-                        <div class="user-email" id="display-email">user@example.com</div>
-                    </div>
-                </div>
-                
-                <div class="error-message" id="password-error"></div>
-                
-                <div class="input-field">
-                    <input type="password" id="password" placeholder=" ">
-                    <label for="password">Enter your password</label>
-                </div>
-                
-                <div class="forgot-password">
-                    <a href="#">Forgot password?</a>
-                </div>
-                
-                <div class="loading" id="loading">
-                    <div class="spinner"></div>
-                </div>
-                
-                <div class="login-footer">
-                    <button class="back-button" id="back-button">Back</button>
-                    <button class="next-button" id="next-password">Next</button>
-                </div>
-            </div>
-            
-            <!-- Success Message (hidden initially) -->
-            <div id="success-message" style="display: none; text-align: center;">
-                <h2 style="margin-bottom: 20px;">Welcome back!</h2>
-                <p>You've successfully signed in.</p>
-                <p>Redirecting to your inbox...</p>
-                <div class="spinner" style="margin-top: 20px;"></div>
-            </div>
-        </div>
-        
-        <div class="footer">
-            <div class="footer-links">
-                <a href="#">Help</a>
-                <a href="#">Privacy</a>
-                <a href="#">Terms</a>
-            </div>
-            <div class="language-selector">
-                <select>
-                    <option>English (United States)</option>
-                    <option>Español</option>
-                    <option>Français</option>
-                    <option>Deutsch</option>
-                </select>
-            </div>
-        </div>
-    </div>
+  </div>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
-    
-    <script>
-        // Your Firebase config (replace with your actual config)
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+  <script>
+    // Replace this with your Firebase project's config
+   const firebaseConfig = {
+  apiKey: "AIzaSyD36-VwAaz7_EQCz6ATD4EsnYrHdYAPv4I",
+  authDomain: "login-page-540ce.firebaseapp.com",
+  projectId: "login-page-540ce",
+  storageBucket: "login-page-540ce.firebasestorage.app",
+  messagingSenderId: "638316403748",
+  appId: "1:638316403748:web:dc630d274c4df4cbfd8cb1"
+};
 
-        // DOM Elements
-        const step1 = document.getElementById('step1');
-        const step2 = document.getElementById('step2');
-        const successMessage = document.getElementById('success-message');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const nextEmailBtn = document.getElementById('next-email');
-        const nextPasswordBtn = document.getElementById('next-password');
-        const backButton = document.getElementById('back-button');
-        const emailError = document.getElementById('email-error');
-        const passwordError = document.getElementById('password-error');
-        const displayEmail = document.getElementById('display-email');
-        const userAvatar = document.getElementById('user-avatar');
-        const loading = document.getElementById('loading');
-        const createAccountLink = document.getElementById('create-account-link');
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-        // Current user email
-        let currentEmail = '';
+    // Handle login
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
 
-        // Email validation regex
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^\+?[\d\s-]{10,}$/;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
 
-        // Next button click (email step)
-        nextEmailBtn.addEventListener('click', () => {
-            const email = emailInput.value.trim();
-            
-            // Validate email
-            if (!email) {
-                emailError.textContent = 'Enter an email or phone number';
-                emailError.style.display = 'block';
-                return;
-            }
-            
-            if (!emailRegex.test(email) && !phoneRegex.test(email)) {
-                emailError.textContent = 'Enter a valid email or phone number';
-                emailError.style.display = 'block';
-                return;
-            }
-            
-            // Hide error if valid
-            emailError.style.display = 'none';
-            
-            // Store email and show password step
-            currentEmail = email;
-            displayEmail.textContent = email;
-            
-            // Set avatar initial
-            const name = email.split('@')[0];
-            userAvatar.textContent = name.charAt(0).toUpperCase();
-            
-            // Show step 2
-            step1.style.display = 'none';
-            step2.style.display = 'block';
-            passwordInput.focus();
+      auth.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          alert("✅ Login successful! Welcome " + userCredential.user.email);
+        })
+        .catch(error => {
+          alert("❌ Error: " + error.message);
         });
-
-        // Back button click (password step)
-        backButton.addEventListener('click', () => {
-            step2.style.display = 'none';
-            step1.style.display = 'block';
-            emailInput.focus();
-        });
-
-        // Next button click (password step)
-        nextPasswordBtn.addEventListener('click', async () => {
-            const password = passwordInput.value;
-            
-            // Validate password
-            if (!password) {
-                passwordError.textContent = 'Enter a password';
-                passwordError.style.display = 'block';
-                return;
-            }
-            
-            // Hide error if valid
-            passwordError.style.display = 'none';
-            
-            // Show loading spinner
-            loading.style.display = 'block';
-            nextPasswordBtn.disabled = true;
-            
-            try {
-                // Sign in with Firebase
-                const userCredential = await firebase.auth().signInWithEmailAndPassword(currentEmail, password);
-                
-                // Success - user is logged in
-                loading.style.display = 'none';
-                step2.style.display = 'none';
-                successMessage.style.display = 'block';
-                
-                // In a real app, you would redirect here
-                console.log('Login successful for:', userCredential.user.email);
-                
-                // Simulate redirect after 2 seconds
-                setTimeout(() => {
-                    alert(`Successfully logged in as ${currentEmail}. In a real app, you would be redirected to your inbox.`);
-                }, 2000);
-            } catch (error) {
-                // Handle errors
-                loading.style.display = 'none';
-                nextPasswordBtn.disabled = false;
-                
-                if (error.code === 'auth/wrong-password') {
-                    passwordError.textContent = 'Wrong password. Try again or click Forgot password to reset it.';
-                } else if (error.code === 'auth/user-not-found') {
-                    passwordError.textContent = 'Account not found. Please check your email or create a new account.';
-                } else {
-                    passwordError.textContent = error.message;
-                }
-                passwordError.style.display = 'block';
-            }
-        });
-
-        // Create account link
-        createAccountLink.addEventListener('click', async (e) => {
-            e.preventDefault();
-            const email = prompt("Enter your email:");
-            if (!email) return;
-            
-            const password = prompt("Enter a password (at least 6 characters):");
-            if (!password || password.length < 6) {
-                alert("Password must be at least 6 characters");
-                return;
-            }
-            
-            try {
-                // Create user with Firebase
-                await firebase.auth().createUserWithEmailAndPassword(email, password);
-                alert("Account created successfully! You can now sign in.");
-                
-                // Auto-fill the email field
-                emailInput.value = email;
-                emailInput.focus();
-            } catch (error) {
-                alert("Error creating account: " + error.message);
-            }
-        });
-
-        // Allow pressing Enter to submit forms
-        emailInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                nextEmailBtn.click();
-            }
-        });
-        
-        passwordInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                nextPasswordBtn.click();
-            }
-        });
-    </script>
+    });
+  </script>
 </body>
 </html>
